@@ -1,23 +1,17 @@
 def caesar_cipher(string, shift)
+  ords = string.split('').map { |letter| letter.ord }
 
-    ords = string.split("").map { |letter| letter.ord }
+  ords.each_with_index do |value, idx|
+    if value.between?(65, 90)
+      ords[idx] += shift
+      ords[idx] -= 26 while ords[idx] > 90
+    elsif value.between?(97, 122)
+      ords[idx] += shift
+      ords[idx] -= 26 while ords[idx] > 122
+    end
+  end
 
-    ords.each_with_index { |value, idx|
-        if value.between?(65,90)
-            ords[idx] += shift
-            while ( ords[idx] > 90 )
-                ords[idx] -= 26
-            end
-        elsif value.between?(97,122)
-            ords[idx] += shift
-            while ( ords[idx] > 122 )
-                ords[idx] -= 26
-            end
-        end
-    }
-
-    string = ords.map { |ord| ord.chr }.join("")
-
+  string = ords.map { |ord| ord.chr }.join('')
 end
 
-puts caesar_cipher("What a string!", 5)
+puts caesar_cipher('What a string!', 5)
